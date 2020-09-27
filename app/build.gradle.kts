@@ -1,16 +1,17 @@
 plugins {
-    id(GradleDeps.androidApplicationGradlePlugin)
-    id(GradleDeps.kotlinAndroidGradlePlugin)
-    id(GradleDeps.kotlinAndroidExtensionsGradlePlugin)
+    id("com.android.application")
+    kotlin("android")
+    kotlin("android.extensions")
+    kotlin("kapt")
 }
 
 android {
-    compileSdkVersion(AndroidSdk.compile)
+    compileSdkVersion(AndroidSdk.compileSdkVersion)
 
     defaultConfig {
         applicationId = "app.bunq2ynab"
-        minSdkVersion(AndroidSdk.min)
-        targetSdkVersion(AndroidSdk.target)
+        minSdkVersion(AndroidSdk.minSdkVersion)
+        targetSdkVersion(AndroidSdk.targetSdkVersion)
         versionCode = 1
         versionName = "1.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"

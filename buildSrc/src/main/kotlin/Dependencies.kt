@@ -9,15 +9,12 @@ object GradleDeps {
 
     const val kotlinGradle = "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
     const val androidGradle = "com.android.tools.build:gradle:${Versions.androidGradle}"
-    const val androidApplicationGradlePlugin = "com.android.application"
-    const val kotlinAndroidGradlePlugin = "kotlin-android"
-    const val kotlinAndroidExtensionsGradlePlugin = "kotlin-android-extensions"
 }
 
 object AndroidSdk {
-    const val min = 26
-    const val compile = 30
-    const val target = compile
+    const val minSdkVersion = 26
+    const val compileSdkVersion = 30
+    const val targetSdkVersion = compileSdkVersion
 }
 
 object AppDeps {
