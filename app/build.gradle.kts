@@ -33,6 +33,7 @@ android {
 }
 
 dependencies {
+    implementation(project(":domain"))
     implementation(AppDeps.kotlinStdLib)
     implementation(AppDeps.kotlinxCoroutines)
     implementation(AppDeps.androidxCore)
