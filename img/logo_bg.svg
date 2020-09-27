@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg viewBox="2.675 148 204 204" xmlns="http://www.w3.org/2000/svg">
+  <g transform="matrix(-1.02, 0, 0, -1.02, 359.675034, 505.478363)">
+    <title>bg</title>
+    <rect style="fill: rgb(245, 200, 53);" x="150" y="150.469" width="100" height="100" rx="0" ry="0"/>
+    <rect style="fill: rgb(134, 195, 233);" transform="matrix(-1, 0, 0, -1, 0, 0)" x="-350" y="-350.469" width="200" height="100" rx="0" ry="0"/>
+    <rect style="fill: rgb(34, 134, 70);" x="250" y="150.469" width="100" height="100" rx="0" ry="0"/>
+  </g>
+  <g transform="matrix(1, 0, 0, 10.195782, -145.188169, -3069.072265)" style="">
+    <title>bunq</title>
+    <rect x="165.001" y="325.534" width="17" height="10" style="fill: rgb(47, 155, 71);"/>
+    <rect x="182.001" y="325.534" width="17" height="10" style="fill: rgb(98, 182, 79);"/>
+    <rect x="199.001" y="325.534" width="17" height="10" style="fill: rgb(138, 204, 83);"/>
+    <rect x="216.001" y="325.534" width="17" height="10" style="fill: rgb(63, 184, 173);"/>
+    <rect x="233.001" y="325.534" width="17" height="10" style="fill: rgb(52, 148, 214);"/>
+    <rect x="250.001" y="325.534" width="17" height="10" style="fill: rgb(41, 114, 187);"/>
+    <rect x="267.001" y="325.534" width="17" height="10" style="fill: rgb(30, 92, 132);"/>
+    <rect x="284.001" y="325.534" width="17" height="10" style="fill: rgb(153, 49, 51);"/>
+    <rect x="301.001" y="325.534" width="17" height="10" style="fill: rgb(225, 47, 48);"/>
+    <rect x="318.001" y="325.534" width="17" height="10" style="fill: rgb(243, 135, 37);"/>
+  </g>
+</svg>
