@@ -9,6 +9,7 @@ buildscript {
         classpath (GradleDeps.kotlinGradle)
         classpath (GradleDeps.hiltGradle)
         classpath (GradleDeps.androidGradle)
+        classpath (GradleDeps.androidXNavigationSafeArgsGradle)
     }
 }
 

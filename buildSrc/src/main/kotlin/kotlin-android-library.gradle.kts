@@ -30,7 +30,7 @@ android {
 
 dependencies {
     implementation(AppDeps.kotlinStdLib)
-    implementation(AppDeps.kotlinxCoroutines)
+    implementation(AppDeps.kotlinXCoroutines)
     implementation(AppDeps.hilt)
     kapt(AppDeps.hiltCompiler)
 }

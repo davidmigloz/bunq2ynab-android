@@ -4,9 +4,19 @@ plugins {
     kotlin("android.extensions")
     kotlin("kapt")
     id("dagger.hilt.android.plugin")
+    id("androidx.navigation.safeargs.kotlin")
 }
 
 android {
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+
     compileSdkVersion(AndroidSdk.compileSdkVersion)
 
     defaultConfig {
@@ -24,24 +34,33 @@ android {
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
     }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
-    }
-    kotlinOptions {
-        jvmTarget = "1.8"
+
+    buildFeatures {
+        dataBinding = true
     }
 }
 
 dependencies {
     implementation(project(":domain"))
+    implementation(project(":data"))
     implementation(AppDeps.kotlinStdLib)
-    implementation(AppDeps.kotlinxCoroutines)
+    implementation(AppDeps.kotlinXCoroutines)
     implementation(AppDeps.hilt)
     kapt(AppDeps.hiltCompiler)
-    implementation(AppDeps.androidxCore)
-    implementation(AppDeps.androidxAppCompat)
-    implementation(AppDeps.androidxConstraintLayout)
+    implementation(AppDeps.androidXCore)
+    implementation(AppDeps.androidXAppCompat)
+    implementation(AppDeps.androidXFragment)
+    implementation(AppDeps.androidXConstraintLayout)
+    implementation(AppDeps.androidXLifecycleCommon)
+    implementation(AppDeps.androidXLifecycleViewModel)
+    implementation(AppDeps.androidXLifecycleViewModelSaveState)
+    implementation(AppDeps.androidXLifecycleLiveData)
+    implementation(AppDeps.androidXLifecycleService)
+    implementation(AppDeps.androidXLifecycleProcess)
+    implementation(AppDeps.androidXHiltLifecycleViewModel)
+    kapt(AppDeps.androidXHiltCompiler)
+    implementation(AppDeps.androidXNavigationFragment)
+    implementation(AppDeps.androidXNavigationUI)
     implementation(AppDeps.materialComponents)
     testImplementation(TestDeps.junit)
 }
