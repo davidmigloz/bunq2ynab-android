@@ -1,16 +1,7 @@
-buildscript {
-
-    repositories {
-        google()
-        jcenter()
-    }
-
-    dependencies {
-        classpath (GradleDeps.kotlinGradle)
-        classpath (GradleDeps.hiltGradle)
-        classpath (GradleDeps.androidGradle)
-        classpath (GradleDeps.androidXNavigationSafeArgsGradle)
-    }
+plugins {
+    dependencyUpdates()
+    ktlint()
+    detekt()
 }
 
 allprojects {
@@ -20,6 +11,6 @@ allprojects {
     }
 }
 
-tasks.register("clean").configure {
-    delete("build")
+task<Delete>("clean") {
+    delete(rootProject.buildDir)
 }

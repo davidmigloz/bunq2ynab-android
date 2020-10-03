@@ -1,5 +1,12 @@
 plugins {
-    id("kotlin-android-library")
+    applyLibDefaultPlugins()
 }
 
-dependencies {}
+android {
+    applyLibDefaultAndroidConfig()
+    applyLibDefaultBuildTypesConfig()
+}
+
+dependencies {
+    applyLibDefaultDependencies()
+}
