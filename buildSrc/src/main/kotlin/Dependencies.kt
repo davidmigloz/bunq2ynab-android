@@ -1,5 +1,7 @@
-// Kotlin version : https://kotlinlang.org/docs/reference/using-gradle.html#plugin-and-versions
+// Kotlin : https://kotlinlang.org/docs/reference/using-gradle.html#plugin-and-versions
 const val kotlinVersion = "1.4.10"
+// Hilt : https://developer.android.com/jetpack/androidx/releases/hilt
+const val hiltVersion = "2.29.1-alpha"
 
 object GradleDeps {
     object Versions {
@@ -8,11 +10,12 @@ object GradleDeps {
     }
 
     const val kotlinGradle = "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
+    const val hiltGradle = "com.google.dagger:hilt-android-gradle-plugin:$hiltVersion"
     const val androidGradle = "com.android.tools.build:gradle:${Versions.androidGradle}"
 }
 
 object AndroidSdk {
-    const val minSdkVersion = 26
+    const val minSdkVersion = 24
     const val compileSdkVersion = 30
     const val targetSdkVersion = compileSdkVersion
 }
@@ -36,8 +39,9 @@ object AppDeps {
     }
 
     const val kotlinStdLib = "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion"
-    const val kotlinxCoroutines =
-        "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.kotlinxCoroutines}"
+    const val kotlinxCoroutines = "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.kotlinxCoroutines}"
+    const val hilt = "com.google.dagger:hilt-android:$hiltVersion"
+    const val hiltCompiler = "com.google.dagger:hilt-compiler:$hiltVersion"
     const val androidxCore = "androidx.core:core-ktx:${Versions.androidxCore}"
     const val androidxAppCompat = "androidx.appcompat:appcompat:${Versions.androidxAppCompat}"
     const val androidxConstraintLayout = "androidx.constraintlayout:constraintlayout:${Versions.androidxConstraintLayout}"

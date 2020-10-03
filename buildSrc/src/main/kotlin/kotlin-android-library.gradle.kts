@@ -3,6 +3,7 @@ plugins {
     kotlin("android")
     kotlin("android.extensions")
     kotlin("kapt")
+    id("dagger.hilt.android.plugin")
 }
 
 android {
@@ -30,4 +31,6 @@ android {
 dependencies {
     implementation(AppDeps.kotlinStdLib)
     implementation(AppDeps.kotlinxCoroutines)
+    implementation(AppDeps.hilt)
+    kapt(AppDeps.hiltCompiler)
 }
