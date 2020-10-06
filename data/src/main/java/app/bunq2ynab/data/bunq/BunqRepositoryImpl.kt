@@ -12,7 +12,7 @@ internal class BunqRepositoryImpl @Inject constructor(
     private val localDataSource: BunqLocalDataSource
 ): BunqRepository {
 
-    override suspend fun getBunqOAuthUrl(): Uri = Uri.parse(BuildConfig.BUNQ_OAUTH_URL)
+    override suspend fun getBunqOAuthUrl(): Uri = Uri.parse(BuildConfig.BUNQ_OAUTH_AUTH_URL)
 
     override suspend fun getBunqOAuthClientId(): String = BuildConfig.BUNQ_OAUTH_CLIENT_ID
 }
