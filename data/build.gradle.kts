@@ -18,4 +18,10 @@ android {
 dependencies {
     applyLibDefaultDependencies()
     implementation(project(":domain"))
+    implementation(AppDeps.okHttp)
+    implementation(AppDeps.okHttpLoggingInterceptor)
+    implementation(AppDeps.retrofit)
+    implementation(AppDeps.retrofitConverterMoshi)
+    implementation(AppDeps.moshi)
+    kapt(AppDeps.moshiKotlinCodeGen)
 }
