@@ -20,8 +20,16 @@ object AppDeps {
             "1.0.0-alpha02" // https://developer.android.com/jetpack/androidx/releases/hilt
         const val androidXNavigation = // Don't forget to update the version in buildSrc too
             "2.3.0" // https://developer.android.com/jetpack/androidx/releases/navigation
+        const val androidXBrowser =
+            "1.2.0" // https://developer.android.com/jetpack/androidx/releases/browser
         const val materialComponents =
             "1.2.1" // https://github.com/material-components/material-components-android/releases
+        const val okHttp =
+            "4.9.0" // https://github.com/square/okhttp
+        const val retrofit =
+            "2.9.0" // https://github.com/square/retrofit
+        const val moshi =
+            "1.11.0" // https://github.com/square/moshi
     }
 
     const val kotlinStdLib = "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${Versions.kotlin}"
@@ -42,7 +50,14 @@ object AppDeps {
     const val androidXHiltCompiler = "androidx.hilt:hilt-compiler:${Versions.androidXHilt}"
     const val androidXNavigationFragment = "androidx.navigation:navigation-fragment-ktx:${Versions.androidXNavigation}"
     const val androidXNavigationUI = "androidx.navigation:navigation-ui-ktx:${Versions.androidXNavigation}"
+    const val androidXBrowser = "androidx.browser:browser:${Versions.androidXBrowser}"
     const val materialComponents = "com.google.android.material:material:${Versions.materialComponents}"
+    const val okHttp = "com.squareup.okhttp3:okhttp:${Versions.okHttp}"
+    const val okHttpLoggingInterceptor = "com.squareup.okhttp3:logging-interceptor:${Versions.okHttp}"
+    const val retrofit = "com.squareup.retrofit2:retrofit:${Versions.retrofit}"
+    const val retrofitConverterMoshi = "com.squareup.retrofit2:converter-moshi:${Versions.retrofit}"
+    const val moshi = "com.squareup.moshi:moshi:${Versions.moshi}"
+    const val moshiKotlinCodeGen = "com.squareup.moshi:moshi-kotlin-codegen:${Versions.moshi}"
 }
 
 object TestDeps {

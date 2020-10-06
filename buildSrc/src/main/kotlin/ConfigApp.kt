@@ -80,6 +80,7 @@ fun DependencyHandler.applyAppDependencies() {
     kapt(AppDeps.androidXHiltCompiler)
     implementation(AppDeps.androidXNavigationFragment)
     implementation(AppDeps.androidXNavigationUI)
+    implementation(AppDeps.androidXBrowser)
     implementation(AppDeps.materialComponents)
     testImplementation(TestDeps.junit)
 }
