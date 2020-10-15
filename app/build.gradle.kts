@@ -4,8 +4,7 @@ plugins {
 
 android {
     kotlinOptions {
-        jvmTarget = "1.8"
-        freeCompilerArgs = freeCompilerArgs + "-Xopt-in=kotlinx.coroutines.ExperimentalCoroutinesApi"
+        applyKotlinConfig()
     }
     applyAppAndroidConfig()
     applyAppBuildTypesConfig()
@@ -13,4 +12,8 @@ android {
 
 dependencies {
     applyAppDependencies()
+    // External dependencies required to create the DI graph
+    implementation(AppDeps.okHttp)
+    implementation(AppDeps.retrofitConverterMoshi)
+    implementation(AppDeps.moshi)
 }

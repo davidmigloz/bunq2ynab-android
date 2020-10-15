@@ -3,6 +3,9 @@ plugins {
 }
 
 android {
+    kotlinOptions {
+        applyKotlinConfig()
+    }
     applyLibDefaultAndroidConfig()
     applyLibDefaultBuildTypesConfig()
     buildTypes {
@@ -34,4 +37,5 @@ dependencies {
     implementation(AppDeps.retrofitConverterMoshi)
     implementation(AppDeps.moshi)
     kapt(AppDeps.moshiKotlinCodeGen)
+    implementation(AppDeps.androidXCore)
 }

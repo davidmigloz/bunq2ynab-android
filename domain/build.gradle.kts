@@ -3,6 +3,9 @@ plugins {
 }
 
 android {
+    kotlinOptions {
+        applyKotlinConfig()
+    }
     applyLibDefaultAndroidConfig()
     applyLibDefaultBuildTypesConfig()
 }

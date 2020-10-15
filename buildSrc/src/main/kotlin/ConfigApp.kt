@@ -2,6 +2,7 @@ import com.android.build.gradle.internal.dsl.BaseAppModuleExtension
 import org.gradle.api.JavaVersion
 import org.gradle.api.artifacts.dsl.DependencyHandler
 import org.gradle.plugin.use.PluginDependenciesSpec
+import org.jetbrains.kotlin.gradle.dsl.KotlinJvmOptions
 
 object AppConfiguration {
     const val applicationId = "app.bunq2ynab"
@@ -25,6 +26,11 @@ fun PluginDependenciesSpec.applyAppPlugins() {
     androidXNavigationSafeArgs()
     ktlint(includeVersion = false)
     detekt(includeVersion = false)
+}
+
+fun KotlinJvmOptions.applyKotlinConfig() {
+    jvmTarget = "1.8"
+    freeCompilerArgs = freeCompilerArgs + "-Xopt-in=kotlinx.coroutines.ExperimentalCoroutinesApi"
 }
 
 fun BaseAppModuleExtension.applyAppAndroidConfig() {

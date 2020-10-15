@@ -1,4 +1,4 @@
-package app.bunq2ynab
+package app.bunq2ynab.utils
 
 import android.content.Context
 import android.content.Intent
