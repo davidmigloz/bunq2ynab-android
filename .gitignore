@@ -9,5 +9,4 @@ buildSrc/build
 .externalNativeBuild
 .cxx
 local.properties
-
-
+secrets/

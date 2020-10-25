@@ -1,5 +1,6 @@
 include(
     ":app",
     ":domain",
-    ":data"
+    ":data",
+    ":lib_design_system"
 )

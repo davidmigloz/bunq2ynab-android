@@ -1,0 +1,74 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <!-- Typography logo: Roboto Slab -->
+    <style name="Theme.Bunq2ynab" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/orange_500</item>
+        <item name="colorPrimaryVariant">@color/orange_500_dark</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/blue_800</item>
+        <item name="colorSecondaryVariant">@color/blue_800_dark</item>
+        <item name="colorOnSecondary">@color/white</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+
+        <!-- Typography -->
+        <item name="textAppearanceHeadline1">@style/TextAppearance.Headline1</item>
+        <item name="textAppearanceHeadline2">@style/TextAppearance.Headline2</item>
+        <item name="textAppearanceHeadline3">@style/TextAppearance.Headline3</item>
+        <item name="textAppearanceHeadline4">@style/TextAppearance.Headline4</item>
+        <item name="textAppearanceHeadline5">@style/TextAppearance.Headline5</item>
+        <item name="textAppearanceHeadline6">@style/TextAppearance.Headline6</item>
+        <item name="textAppearanceSubtitle1">@style/TextAppearance.Subtitle1</item>
+        <item name="textAppearanceSubtitle2">@style/TextAppearance.Subtitle2</item>
+        <item name="textAppearanceBody1">@style/TextAppearance.Body1</item>
+        <item name="textAppearanceBody2">@style/TextAppearance.Body2</item>
+        <item name="textAppearanceCaption">@style/TextAppearance.Caption</item>
+        <item name="textAppearanceButton">@style/TextAppearance.Button</item>
+        <item name="textAppearanceOverline">@style/TextAppearance.Overline</item>
+
+        <!-- Buttons -->
+        <item name="materialButtonStyle">@style/Widget.App.Button</item>
+        <item name="borderlessButtonStyle">@style/Widget.Button.TextButton</item>
+        <item name="materialButtonOutlinedStyle">@style/Widget.Button.OutlinedButton</item>
+
+        <!-- Shapes -->
+        <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.SmallComponent</item>
+    </style>
+
+    <!-- Buttons -->
+    <style name="Widget.App.Button" parent="Widget.MaterialComponents.Button">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.Button</item>
+        <item name="android:textAppearance">@style/TextAppearance.Button</item>
+        <item name="shapeAppearance">@style/ShapeAppearance.SmallComponent</item>
+        <item name="android:paddingHorizontal">@dimen/spacing_7xl</item>
+        <item name="android:paddingVertical">@dimen/spacing_m</item>
+    </style>
+
+    <style name="ThemeOverlay.Button" parent="">
+        <!--        <item name="colorPrimary">?attr/colorPrimary</item>-->
+        <!--        <item name="colorOnPrimary">?attr/colorOnPrimary</item>-->
+    </style>
+
+    <style name="Widget.Button.TextButton" parent="Widget.MaterialComponents.Button.TextButton">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.Button.TextButton</item>
+        <item name="android:textAppearance">@style/TextAppearance.Button</item>
+        <item name="shapeAppearance">@style/ShapeAppearance.SmallComponent</item>
+    </style>
+
+    <style name="Widget.Button.OutlinedButton" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.Button.TextButton</item>
+        <item name="android:textAppearance">@style/TextAppearance.Button</item>
+        <item name="shapeAppearance">@style/ShapeAppearance.SmallComponent</item>
+    </style>
+
+    <style name="ThemeOverlay.Button.TextButton" parent="">
+        <!--        <item name="colorPrimary">?attr/colorPrimary</item>-->
+    </style>
+
+    <style name="ShapeAppearance.SmallComponent" parent="ShapeAppearance.MaterialComponents.SmallComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">32dp</item>
+    </style>
+</resources>
