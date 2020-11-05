@@ -31,6 +31,7 @@ android {
 dependencies {
     applyLibDefaultDependencies()
     implementation(project(":domain"))
+    implementation(project(":lib_utils"))
     implementation(AppDeps.okHttp)
     implementation(AppDeps.okHttpLoggingInterceptor)
     implementation(AppDeps.retrofit)

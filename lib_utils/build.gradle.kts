@@ -12,5 +12,4 @@ android {
 
 dependencies {
     applyLibDefaultDependencies()
-    implementation(project(":lib_utils"))
 }

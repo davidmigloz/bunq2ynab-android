@@ -12,7 +12,7 @@ val kotlinGradle =
 val hiltGradle =
     "2.29.1-alpha" // https://github.com/google/dagger/releases
 val androidGradle =
-    "4.1.0-rc03" // https://developer.android.com/studio/releases/gradle-plugin.html#updating-plugin
+    "4.1.0" // https://developer.android.com/studio/releases/gradle-plugin.html#updating-plugin
 val androidXNavigation =
     "2.3.0" // https://developer.android.com/jetpack/androidx/releases/navigation
 

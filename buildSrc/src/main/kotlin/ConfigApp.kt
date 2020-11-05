@@ -69,6 +69,7 @@ fun DependencyHandler.applyAppDependencies() {
     implementation(project(":domain"))
     implementation(project(":data"))
     implementation(project(":lib_design_system"))
+    implementation(project(":lib_utils"))
     implementation(AppDeps.kotlinStdLib)
     implementation(AppDeps.kotlinXCoroutines)
     implementation(AppDeps.hilt)

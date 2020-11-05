@@ -40,7 +40,7 @@ class ConnectBunqFragment : Fragment() {
     }
 
     private fun setupViews(binding: ConnectBunqFragmentBinding) {
-        binding.bunq.setOnClickListener {
+        binding.btnConnectBunq.setOnClickListener {
             viewModel.onConnectClicked()
         }
         viewModel.openOAuthFlowEvent.observeEvent(viewLifecycleOwner) { url ->

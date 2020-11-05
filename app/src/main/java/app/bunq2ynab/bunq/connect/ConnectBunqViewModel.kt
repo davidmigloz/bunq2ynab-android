@@ -7,17 +7,20 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import app.bunq2ynab.bunq.connect.ConnectBunqViewModel.ViewModelParams
 import app.bunq2ynab.domain.model.Event
+import app.bunq2ynab.domain.usecase.bunq.CreateBunqApiContextUseCase
 import app.bunq2ynab.domain.usecase.bunq.ExchangeBunqOAuthTokenUseCase
 import app.bunq2ynab.domain.usecase.bunq.GetBunqOAuthAuthorizationRequestUrlUseCase
 import app.bunq2ynab.domain.usecase.bunq.GetBunqOAuthAuthorizationRequestUrlUseCase.UseCaseParams
 import app.bunq2ynab.utils.BaseViewModel
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 private const val REDIRECT_URI = "https://bunq2ynab.app/connect/bunq"
 
 class ConnectBunqViewModel @ViewModelInject constructor(
     private val getBunqOAuthAuthorizationRequestUrlUseCase: GetBunqOAuthAuthorizationRequestUrlUseCase,
-    private val exchangeBunqOAuthTokenUseCase: ExchangeBunqOAuthTokenUseCase
+    private val exchangeBunqOAuthTokenUseCase: ExchangeBunqOAuthTokenUseCase,
+    private val createBunqApiContextUseCase: CreateBunqApiContextUseCase
 ) : BaseViewModel<ViewModelParams>() {
 
     private val _openOAuthFlowEvent = MutableLiveData<Event<String>>()
@@ -34,19 +37,23 @@ class ConnectBunqViewModel @ViewModelInject constructor(
 
     fun onConnectClicked() {
         viewModelScope.launch {
-            val result = getBunqOAuthAuthorizationRequestUrlUseCase(
-                UseCaseParams(
-                    redirectUri = REDIRECT_URI
-                )
-            )
-            result.fold(
-                success = { url ->
-                    _openOAuthFlowEvent.postValue(Event(url))
-                },
-                failure = {
+            createBunqApiContextUseCase(CreateBunqApiContextUseCase.UseCaseParams("")).collect()
 
-                }
-            )
+
+
+//            val result = getBunqOAuthAuthorizationRequestUrlUseCase(
+//                UseCaseParams(
+//                    redirectUri = REDIRECT_URI
+//                )
+//            )
+//            result.fold(
+//                success = { url ->
+//                    _openOAuthFlowEvent.postValue(Event(url))
+//                },
+//                failure = {
+//
+//                }
+//            )
 
         }
     }

@@ -12,6 +12,7 @@ android {
 
 dependencies {
     applyLibDefaultDependencies()
+    implementation(project(":lib_utils"))
     implementation(AppDeps.androidXCore)
     implementation(AppDeps.androidXAppCompat)
     implementation(AppDeps.androidXFragment)

@@ -14,18 +14,62 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/white"
         tools:context=".MainActivity">
 
-
-        <TextView
-            android:id="@+id/onboarding"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="onboarding"
-            app:layout_constraintBottom_toBottomOf="parent"
+        <View
+            android:id="@+id/header"
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:background="@color/blue_800_dark"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/spacing_2xl"
+            android:text="Let's start"
+            android:textAppearance="@style/TextAppearance.Headline4"
+            android:textColor="@color/white"
+            android:gravity="center_horizontal"
+            app:layout_constraintEnd_toEndOf="@id/header"
+            app:layout_constraintStart_toStartOf="@id/header"
+            app:layout_constraintBottom_toBottomOf="@id/header"
+            app:layout_constraintTop_toTopOf="@id/header" />
+
+
+        <Button
+            android:id="@+id/btnConnectBunq"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Connect to Bunq"
+            android:layout_marginTop="@dimen/spacing_3xl"
+            app:layout_constraintTop_toBottomOf="@id/header"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Button
+            android:id="@+id/btnConnectYnab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Connect to YNAB"
+            android:layout_marginTop="@dimen/spacing_3xl"
+            app:layout_constraintTop_toBottomOf="@id/btnConnectBunq"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Button
+            android:id="@+id/btnLinkAccounts"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Link accounts"
+            android:layout_marginTop="@dimen/spacing_3xl"
+            app:layout_constraintTop_toBottomOf="@id/btnConnectYnab"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
