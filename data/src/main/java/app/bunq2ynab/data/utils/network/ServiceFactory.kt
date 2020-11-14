@@ -2,7 +2,7 @@ package app.bunq2ynab.data.utils.network
 
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
-import retrofit2.converter.moshi.MoshiConverterFactory
+import retrofit2.Converter
 
 internal class ServiceFactory {
 
@@ -10,17 +10,17 @@ internal class ServiceFactory {
         inline fun <reified S> createService(
             baseURL: String,
             okHttpBaseClient: OkHttpClient,
-            moshiConverterFactory: MoshiConverterFactory,
-            interceptors: List<Interceptor>
+            okHttpInterceptors: List<Interceptor>,
+            retrofitConverterFactories: List<Converter.Factory>
         ): S {
             val okHttpClient = okHttpBaseClient.newBuilder().apply {
                 // Add custom interceptors at the beginning so that they run first
                 // that the ones from the base client (e.g. logging)
-                val newInterceptorsList = interceptors + interceptors()
+                val newInterceptorsList = okHttpInterceptors + interceptors()
                 interceptors().clear()
                 interceptors().addAll(newInterceptorsList)
             }.build()
-            val retrofit = RetrofitFactory.createRetrofit(okHttpClient, moshiConverterFactory, baseURL)
+            val retrofit = RetrofitFactory.createRetrofit(baseURL, okHttpClient, retrofitConverterFactories)
             return retrofit.create(S::class.java)
         }
     }

@@ -30,6 +30,8 @@ class ConnectBunqFragment : Fragment() {
             vm = viewModel
         }
         setupViews(binding)
+        observeData(binding)
+        observeEvents()
         viewModel.start(
             ViewModelParams(
                 code = args.code,
@@ -40,9 +42,17 @@ class ConnectBunqFragment : Fragment() {
     }
 
     private fun setupViews(binding: ConnectBunqFragmentBinding) {
-        binding.btnConnectBunq.setOnClickListener {
-            viewModel.onConnectClicked()
+        binding.btnConnectBunq.setOnClickListener { viewModel.onConnectClicked() }
+
+    }
+
+    private fun observeData(binding: ConnectBunqFragmentBinding) {
+        viewModel.connectionState.observe(viewLifecycleOwner) { state ->
+            binding.state.text = "State: $state"
         }
+    }
+
+    private fun observeEvents() {
         viewModel.openOAuthFlowEvent.observeEvent(viewLifecycleOwner) { url ->
             openUrlInCustomTab(requireContext(), url)
         }

@@ -8,8 +8,10 @@ import app.bunq2ynab.data.bunq.remote.BunqApi
 import app.bunq2ynab.data.bunq.remote.BunqInterceptor
 import app.bunq2ynab.data.bunq.remote.BunqRemoteDataSource
 import app.bunq2ynab.data.bunq.remote.BunqRemoteDataSourceImpl
+import app.bunq2ynab.data.bunq.remote.converter.*
 import app.bunq2ynab.data.utils.network.ServiceFactory
 import app.bunq2ynab.domain.repository.BunqRepository
+import com.squareup.moshi.Moshi
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -53,17 +55,40 @@ internal abstract class BunqModule {
         @Provides
         fun provideBunqBaseUrl(): String = BuildConfig.BUNQ_BASE_URL
 
+        @Qualifier
+        @Retention(AnnotationRetention.RUNTIME)
+        annotation class BunqMoshiConverterFactory
+
+        @Singleton
+        @BunqMoshiConverterFactory
+        @Provides
+        fun provideBunqMoshiConverterFactory(
+            moshi: Moshi,
+            bunqEnvelopFactory: BunqEnvelopFactory,
+            bunqPairAdapterFactory: BunqPairAdapterFactory,
+            bunqTripleAdapterFactory: BunqTripleAdapterFactory,
+            bunqObjectWrapperAdapterFactory: BunqObjectWrapperAdapterFactory
+        ): MoshiConverterFactory = MoshiConverterFactory.create(
+            moshi.newBuilder()
+                .add(bunqEnvelopFactory)
+                .add(bunqPairAdapterFactory)
+                .add(bunqTripleAdapterFactory)
+                .add(bunqObjectWrapperAdapterFactory)
+                .build()
+        )
+
         @Provides
         fun provideBunqApiService(
             @BunqBaseUrl baseURL: String,
             okHttpBaseClient: OkHttpClient,
-            moshiConverterFactory: MoshiConverterFactory,
             bunqInterceptor: BunqInterceptor,
+            @BunqMoshiConverterFactory moshiConverterFactory: MoshiConverterFactory,
+            envelopConverter: EnvelopConverter
         ): BunqApi = ServiceFactory.createService(
             baseURL = baseURL,
             okHttpBaseClient = okHttpBaseClient,
-            moshiConverterFactory = moshiConverterFactory,
-            interceptors = listOf(bunqInterceptor)
+            okHttpInterceptors = listOf(bunqInterceptor),
+            retrofitConverterFactories = listOf(moshiConverterFactory, envelopConverter)
         )
     }
 }

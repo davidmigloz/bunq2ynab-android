@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import app.bunq2ynab.bunq.connect.ConnectBunqViewModel.ViewModelParams
 import app.bunq2ynab.domain.model.Event
+import app.bunq2ynab.domain.usecase.bunq.ApiContextState
 import app.bunq2ynab.domain.usecase.bunq.CreateBunqApiContextUseCase
 import app.bunq2ynab.domain.usecase.bunq.ExchangeBunqOAuthTokenUseCase
 import app.bunq2ynab.domain.usecase.bunq.GetBunqOAuthAuthorizationRequestUrlUseCase
@@ -23,6 +24,8 @@ class ConnectBunqViewModel @ViewModelInject constructor(
     private val createBunqApiContextUseCase: CreateBunqApiContextUseCase
 ) : BaseViewModel<ViewModelParams>() {
 
+    val connectionState = MutableLiveData<String>()
+
     private val _openOAuthFlowEvent = MutableLiveData<Event<String>>()
     val openOAuthFlowEvent: LiveData<Event<String>>
         get() = _openOAuthFlowEvent
@@ -36,26 +39,20 @@ class ConnectBunqViewModel @ViewModelInject constructor(
     }
 
     fun onConnectClicked() {
-        viewModelScope.launch {
-            createBunqApiContextUseCase(CreateBunqApiContextUseCase.UseCaseParams("")).collect()
+        viewModelScope.launch { startBunqOAuthFlow() }
+    }
 
-
-
-//            val result = getBunqOAuthAuthorizationRequestUrlUseCase(
-//                UseCaseParams(
-//                    redirectUri = REDIRECT_URI
-//                )
-//            )
-//            result.fold(
-//                success = { url ->
-//                    _openOAuthFlowEvent.postValue(Event(url))
-//                },
-//                failure = {
-//
-//                }
-//            )
-
-        }
+    private suspend fun startBunqOAuthFlow() {
+        val result = getBunqOAuthAuthorizationRequestUrlUseCase(UseCaseParams(REDIRECT_URI))
+        result.fold(
+            success = { url ->
+                _openOAuthFlowEvent.postValue(Event(url))
+            },
+            failure = {
+                Log.d("ConnectBunqViewModel", "getBunqOAuthAuthorizationRequestUrlUseCase(): failure")
+                // TODO
+            }
+        )
     }
 
     private suspend fun exchangeBunqOAuthTokens(
@@ -71,12 +68,33 @@ class ConnectBunqViewModel @ViewModelInject constructor(
         )
         result.fold(
             success = {
-                Log.d("ConnectBunqViewModel", "success")
+                createBunqApiContext()
             },
-            failure = {
-                Log.d("ConnectBunqViewModel", "failure")
+            failure = { e ->
+                Log.d("ConnectBunqViewModel", "exchangeBunqOAuthTokenUseCase(): failure")
+                // TODO
             }
         )
+    }
+
+    private suspend fun createBunqApiContext() {
+        createBunqApiContextUseCase().collect { result ->
+            result.fold(
+                success = { state: ApiContextState ->
+                    val stateName = when (state) {
+                        is ApiContextState.DeviceRsaKeyPairGeneration -> "Generating secure encryption key"
+                        is ApiContextState.InstallationRegistration -> "Registering encryption key"
+                        is ApiContextState.DeviceRegistration -> "Registering device"
+                    }
+                    connectionState.postValue(stateName)
+                },
+                failure = { e ->
+                    Log.d("ConnectBunqViewModel", "createBunqApiContextUseCase(): failure")
+                    connectionState.postValue("Error")
+                    // TODO
+                }
+            )
+        }
     }
 
     data class ViewModelParams(

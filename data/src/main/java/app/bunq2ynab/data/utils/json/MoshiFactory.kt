@@ -2,6 +2,9 @@ package app.bunq2ynab.data.utils.json
 
 import com.squareup.moshi.Moshi
 
+/**
+ * Provides a Moshi instance with the base configuration and adapters.
+ */
 internal class MoshiFactory {
 
     companion object {

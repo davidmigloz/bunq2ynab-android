@@ -6,6 +6,8 @@ import app.bunq2ynab.data.bunq.local.BunqLocalDataSource
 import app.bunq2ynab.data.bunq.remote.BunqRemoteDataSource
 import app.bunq2ynab.data.bunq.remote.mapper.BunqDataMappersFacade
 import app.bunq2ynab.domain.model.Result
+import app.bunq2ynab.domain.model.bunq.BunqInstallation
+import app.bunq2ynab.domain.model.error.DataError
 import app.bunq2ynab.domain.model.map
 import app.bunq2ynab.domain.model.oauth.OAuthTokenExchangeResult
 import app.bunq2ynab.domain.repository.BunqRepository
@@ -18,6 +20,10 @@ internal class BunqRepositoryImpl @Inject constructor(
 ) : BunqRepository {
 
     private var accessToken: String = ""
+
+    // ---------------------------------------------------------------------------------------------
+    // OAuth
+    // ---------------------------------------------------------------------------------------------
 
     override suspend fun getBunqOAuthUrl(
         clientId: String,
@@ -55,4 +61,14 @@ internal class BunqRepositoryImpl @Inject constructor(
     }
 
     override suspend fun getAccessToken(): String = accessToken
+
+    // ---------------------------------------------------------------------------------------------
+    // API
+    // ---------------------------------------------------------------------------------------------
+
+    override suspend fun createInstallation(
+        publicKeyPemString: String
+    ): Result<BunqInstallation, DataError> = remoteDataSource.createInstallation(publicKeyPemString).map {
+        bunqDataMappersFacade.bunqInstallationMapper(it)
+    }
 }

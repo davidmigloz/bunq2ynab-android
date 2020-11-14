@@ -23,10 +23,4 @@ internal class NetworkModule {
     @Singleton
     @Provides
     fun provideMoshi(): Moshi = MoshiFactory.createMoshi()
-
-    @Singleton
-    @Provides
-    fun provideMoshiConverterFactory(
-        moshi: Moshi
-    ): MoshiConverterFactory = MoshiConverterFactory.create(moshi)
 }

@@ -1,13 +1,14 @@
 package app.bunq2ynab.domain.usecase.bunq
 
-import android.util.Log
 import app.bunq2ynab.domain.model.Result
+import app.bunq2ynab.domain.model.bunq.BunqInstallation
 import app.bunq2ynab.domain.repository.BunqRepository
 import app.bunq2ynab.domain.repository.KeyStoreRepository
-import app.bunq2ynab.domain.usecase.base.FlowUseCase
-import app.bunq2ynab.domain.usecase.bunq.CreateBunqApiContextUseCase.UseCaseParams
+import app.bunq2ynab.domain.usecase.base.NoParams
+import app.bunq2ynab.domain.usecase.base.NoParamsFlowUseCase
 import app.bunq2ynab.utils.crypt.toPemString
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
@@ -16,12 +17,21 @@ const val BUNQ_RSA_KEY_ALIAS = "cwByQdObv4RgFniqMW5p"
 class CreateBunqApiContextUseCase @Inject constructor(
     private val bunqRepository: BunqRepository,
     private val keyStoreRepository: KeyStoreRepository
-) : FlowUseCase<UseCaseParams, ApiContextState, Exception> {
+) : NoParamsFlowUseCase<ApiContextState, Exception> {
 
-    override fun invoke(params: UseCaseParams): Flow<Result<ApiContextState, Exception>> {
-        return flow {
+    override fun invoke(params: NoParams): Flow<Result<ApiContextState, Exception>> {
+        return flow<Result<ApiContextState, Exception>> {
+            // 1. DeviceRsaKeyPairGeneration
+            emit(Result.success(ApiContextState.DeviceRsaKeyPairGeneration))
             val publicKeyPemString = generateRsaKeyPair()
-            registerInstallation(publicKeyPemString)
+            // 2. InstallationRegistration
+            emit(Result.success(ApiContextState.InstallationRegistration))
+            val installation = registerInstallation(publicKeyPemString)
+            // 3. DeviceRegistration
+            emit(Result.success(ApiContextState.DeviceRegistration))
+        }.catch { e ->
+            val exception = if(e is Exception) e else Exception(e)
+            emit(Result.error(exception))
         }
     }
 
@@ -42,14 +52,18 @@ class CreateBunqApiContextUseCase @Inject constructor(
      * An installation is used to tell the server about the public key of your key pair.
      * The server uses this key to verify your subsequent calls.
      * This method registers the given RSA public key in bunq.
+     *
+     * You provide the server with the public part of the key pair that you are going to use to create the value of the signature header for all future API calls. The server creates an installation for you. Store the Installation Token and ServerPublicKey from the response. This token is used in the "X-Bunq-Client-Authentication" header for the creation of a DeviceServer and SessionServer.
      */
-    private suspend fun registerInstallation(publicKeyPemString: String) {
-
+    private suspend fun registerInstallation(publicKeyPemString: String): BunqInstallation {
+        return bunqRepository.createInstallation(publicKeyPemString).get()
     }
-
-    data class UseCaseParams(val apiKey: String)
 }
 
 sealed class ApiContextState {
+
+    object DeviceRsaKeyPairGeneration: ApiContextState()
+    object InstallationRegistration: ApiContextState()
+    object DeviceRegistration: ApiContextState()
 
 }
