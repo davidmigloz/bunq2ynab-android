@@ -85,6 +85,7 @@ class ConnectBunqViewModel @ViewModelInject constructor(
                         is ApiContextState.DeviceRsaKeyPairGeneration -> "Generating secure encryption key"
                         is ApiContextState.InstallationRegistration -> "Registering encryption key"
                         is ApiContextState.DeviceRegistration -> "Registering device"
+                        is ApiContextState.SessionOpening -> "Opening a session"
                     }
                     connectionState.postValue(stateName)
                 },

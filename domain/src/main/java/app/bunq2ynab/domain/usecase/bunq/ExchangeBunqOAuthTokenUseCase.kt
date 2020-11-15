@@ -2,32 +2,32 @@ package app.bunq2ynab.domain.usecase.bunq
 
 import app.bunq2ynab.domain.model.Result
 import app.bunq2ynab.domain.model.map
-import app.bunq2ynab.domain.repository.BunqRepository
+import app.bunq2ynab.domain.repository.bunq.BunqOAuthRepository
 import app.bunq2ynab.domain.usecase.base.UseCase
 import app.bunq2ynab.domain.usecase.bunq.ExchangeBunqOAuthTokenUseCase.UseCaseParams
 import javax.inject.Inject
 
 class ExchangeBunqOAuthTokenUseCase @Inject constructor(
-    private val bunqRepository: BunqRepository
+    private val bunqOAuthRepository: BunqOAuthRepository
 ) : UseCase<UseCaseParams, Unit, Exception> {
 
     override suspend fun invoke(params: UseCaseParams): Result<Unit, Exception> {
         return Result.of {
             checkState(params.state)
-            bunqRepository.exchangeOAuthToken(
+            bunqOAuthRepository.exchangeOAuthToken(
                 authorizationCode = params.authorizationCode,
                 redirectUri = params.redirectUri,
-                clientId = bunqRepository.getBunqOAuthClientId(),
-                clientSecret = bunqRepository.getBunqOAuthClientSecret()
+                clientId = bunqOAuthRepository.getBunqOAuthClientId(),
+                clientSecret = bunqOAuthRepository.getBunqOAuthClientSecret()
             ).map { oAuthTokenExchangeResult ->
                 checkState(oAuthTokenExchangeResult.state)
-                bunqRepository.setAccessToken(oAuthTokenExchangeResult.accessToken)
+                bunqOAuthRepository.setAccessToken(oAuthTokenExchangeResult.accessToken)
             }
         }
     }
 
     private suspend fun checkState(state: String) {
-        val originalState = bunqRepository.getOAuthState()
+        val originalState = bunqOAuthRepository.getOAuthState()
         if (originalState != state) throw OAuthStateException("State has changed, possible CSRF attack!")
     }
 

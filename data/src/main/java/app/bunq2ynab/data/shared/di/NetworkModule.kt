@@ -9,7 +9,6 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import retrofit2.converter.moshi.MoshiConverterFactory
-import javax.inject.Qualifier
 import javax.inject.Singleton
 
 @Module
@@ -23,4 +22,10 @@ internal class NetworkModule {
     @Singleton
     @Provides
     fun provideMoshi(): Moshi = MoshiFactory.createMoshi()
+
+    @Singleton
+    @Provides
+    fun provideMoshiConverterFactory(
+        moshi: Moshi
+    ): MoshiConverterFactory = MoshiConverterFactory.create(moshi)
 }
