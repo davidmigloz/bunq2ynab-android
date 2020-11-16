@@ -17,6 +17,9 @@ import javax.inject.Inject
 
 const val BUNQ_RSA_KEY_ALIAS = "cwByQdObv4RgFniqMW5p"
 
+/**
+ * https://beta.doc.bunq.com/quickstart/opening-a-session
+ */
 class CreateBunqApiContextUseCase @Inject constructor(
     private val keyStoreRepository: KeyStoreRepository,
     private val bunqRepository: BunqRepository,

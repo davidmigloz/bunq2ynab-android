@@ -1,20 +1,15 @@
 package app.bunq2ynab.data.bunq.main.di
 
 import app.bunq2ynab.data.BuildConfig
-import app.bunq2ynab.data.bunq.auth.BunqAuthManagerImpl
 import app.bunq2ynab.data.bunq.main.BunqRepositoryImpl
 import app.bunq2ynab.data.bunq.main.local.BunqLocalDataSource
 import app.bunq2ynab.data.bunq.main.local.BunqLocalDataSourceImpl
 import app.bunq2ynab.data.bunq.main.remote.BunqApi
-import app.bunq2ynab.data.bunq.main.remote.BunqInterceptor
+import app.bunq2ynab.data.bunq.main.remote.interceptor.BunqInterceptor
 import app.bunq2ynab.data.bunq.main.remote.BunqRemoteDataSource
-import app.bunq2ynab.data.bunq.oauth.remote.BunqOAuthApi
-import app.bunq2ynab.data.bunq.oauth.remote.BunqOAuthInterceptor
-import app.bunq2ynab.data.bunq.oauth.remote.BunqOAuthRemoteDataSource
 import app.bunq2ynab.data.bunq.main.remote.BunqRemoteDataSourceImpl
 import app.bunq2ynab.data.bunq.main.remote.converter.*
 import app.bunq2ynab.data.utils.network.ServiceFactory
-import app.bunq2ynab.domain.repository.bunq.BunqAuthManager
 import app.bunq2ynab.domain.repository.bunq.BunqRepository
 import com.squareup.moshi.Moshi
 import dagger.Binds

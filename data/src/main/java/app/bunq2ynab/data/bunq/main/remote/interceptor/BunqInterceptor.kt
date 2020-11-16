@@ -1,4 +1,4 @@
-package app.bunq2ynab.data.bunq.main.remote
+package app.bunq2ynab.data.bunq.main.remote.interceptor
 
 import app.bunq2ynab.domain.repository.bunq.BunqAuthManager
 import kotlinx.coroutines.runBlocking
@@ -12,7 +12,8 @@ import javax.inject.Inject
  * Docs: https://doc.bunq.com/#/headers
  */
 internal class BunqInterceptor @Inject constructor(
-    private val bunqAuthManager: BunqAuthManager
+    private val bunqAuthManager: BunqAuthManager,
+    private val bunqSigner: BunqSigner
 ) : Interceptor {
 
     override fun intercept(chain: Interceptor.Chain): Response {
@@ -21,7 +22,7 @@ internal class BunqInterceptor @Inject constructor(
                 .addCacheHeader()
                 .addContentTypeHeader()
                 .addUserAgentHeader()
-                .addBunqHeaders()
+                .addBunqHeaders(chain.request())
                 .build()
         )
     }
@@ -29,24 +30,21 @@ internal class BunqInterceptor @Inject constructor(
     /**
      * The standard HTTP Cache-Control header is required for all requests.
      */
-    private fun Request.Builder.addCacheHeader() = this.apply {
+    private fun Request.Builder.addCacheHeader() =
         header("Cache-Control", "no-cache")
-    }
 
     /**
      * JSON is used as a general data exchange format.
      */
-    private fun Request.Builder.addContentTypeHeader() = this.apply {
+    private fun Request.Builder.addContentTypeHeader() =
         header("Content-Type", "application/json")
-    }
 
     /**
      * The User-Agent header field should contain information about the user agent originating the request.
      * There are no restrictions on the value of this header.
      */
-    private fun Request.Builder.addUserAgentHeader() = runBlocking {
-        header("User-Agent", "bunq2ynab.app")
-    }
+    private fun Request.Builder.addUserAgentHeader() =
+        header("User-Agent", "bunq2ynab.app") // TODO attach version
 
     /**
      * + X-Bunq-Language: The X-Bunq-Language header must contain a preferred language indication.
@@ -68,7 +66,7 @@ internal class BunqInterceptor @Inject constructor(
      * + X-Bunq-Client-Signature: signature of the request body (https://doc.bunq.com/#/signing)
      * + X-Bunq-Client-Authentication: installation Token or session Token
      */
-    private fun Request.Builder.addBunqHeaders() = this.apply {
+    private fun Request.Builder.addBunqHeaders(request: Request) = runBlocking {
         header("X-Bunq-Language", "en_US")
         header("X-Bunq-Region", "nl_NL")
         header("X-Bunq-Client-Request-Id", UUID.randomUUID().toString())
@@ -76,6 +74,6 @@ internal class BunqInterceptor @Inject constructor(
         bunqAuthManager.authToken?.value?.let { token ->
             header("X-Bunq-Client-Authentication", token)
         }
-//        header("X-Bunq-Client-Signature", "") // TODO
+        header("X-Bunq-Client-Signature", bunqSigner.sign(request.body.toString()))
     }
 }

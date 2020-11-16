@@ -8,7 +8,7 @@ import retrofit2.http.Query
 internal interface BunqOAuthApi {
 
     // https://beta.doc.bunq.com/basics/oauth#token-exchange
-    @POST("/v1/token")
+    @POST("token")
     suspend fun exchangeOAuthToken(
         @Query("grant_type") grantType: String,
         @Query("code") code: String,
