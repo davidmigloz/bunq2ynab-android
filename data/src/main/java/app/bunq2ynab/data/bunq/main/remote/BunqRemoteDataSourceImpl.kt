@@ -13,15 +13,25 @@ internal class BunqRemoteDataSourceImpl @Inject constructor(
 
     override suspend fun createInstallation(
         publicKeyPemString: String
-    ): Result<BunqTriple<BunqInstallationIdDto, BunqInstallationTokenDto, BunqInstallationServerPublicKeyDto>, RemoteError> {
+    ): Result<BunqTriple<BunqInstallationIdDto, BunqAuthTokenDto, BunqInstallationServerPublicKeyDto>, RemoteError> {
         return makeApiCall {
             api.createInstallation(BunqInstallationRequestDto(publicKeyPemString))
         }
     }
 
-    override suspend fun registerDevice(apiKey: String): Result<BunqDeviceRegistrationDto, RemoteError> {
+    override suspend fun registerDevice(
+        apiKey: String
+    ): Result<BunqDeviceRegistrationDto, RemoteError> {
         return makeApiCall {
             api.registerDevice(BunqDeviceRegistrationRequestDto(secret = apiKey))
+        }
+    }
+
+    override suspend fun openSession(
+        apiKey: String
+    ): Result<BunqTriple<BunqSessionIdDto, BunqAuthTokenDto, BunqSessionUserDto>, RemoteError> {
+        return makeApiCall {
+            api.openSession(BunqSessionOpeningRequestDto(secret = apiKey))
         }
     }
 }

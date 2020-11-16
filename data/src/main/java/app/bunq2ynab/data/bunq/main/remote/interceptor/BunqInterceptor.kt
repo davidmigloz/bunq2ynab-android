@@ -5,6 +5,7 @@ import kotlinx.coroutines.runBlocking
 import okhttp3.Interceptor
 import okhttp3.Request
 import okhttp3.Response
+import okio.Buffer
 import java.util.*
 import javax.inject.Inject
 
@@ -19,8 +20,8 @@ internal class BunqInterceptor @Inject constructor(
     override fun intercept(chain: Interceptor.Chain): Response {
         return chain.proceed(
             chain.request().newBuilder()
-                .addCacheHeader()
                 .addContentTypeHeader()
+                .addCacheHeader()
                 .addUserAgentHeader()
                 .addBunqHeaders(chain.request())
                 .build()
@@ -74,6 +75,13 @@ internal class BunqInterceptor @Inject constructor(
         bunqAuthManager.authToken?.value?.let { token ->
             header("X-Bunq-Client-Authentication", token)
         }
-        header("X-Bunq-Client-Signature", bunqSigner.sign(request.body.toString()))
+        header("X-Bunq-Client-Signature", bunqSigner.sign(request.getBodyAsString()))
+    }
+
+    private fun Request.getBodyAsString(): String {
+        val requestCopy = this.newBuilder().build()
+        val buffer = Buffer()
+        requestCopy.body?.writeTo(buffer)
+        return buffer.readUtf8()
     }
 }

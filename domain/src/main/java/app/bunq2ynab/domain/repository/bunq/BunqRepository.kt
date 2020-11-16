@@ -3,6 +3,7 @@ package app.bunq2ynab.domain.repository.bunq
 import app.bunq2ynab.domain.model.Result
 import app.bunq2ynab.domain.model.bunq.BunqDevice
 import app.bunq2ynab.domain.model.bunq.BunqInstallation
+import app.bunq2ynab.domain.model.bunq.BunqSession
 import app.bunq2ynab.domain.model.error.DataError
 
 interface BunqRepository {
@@ -14,4 +15,8 @@ interface BunqRepository {
     suspend fun registerDevice(
         apiKey: String
     ): Result<BunqDevice, DataError>
+
+    suspend fun openSession(
+        apiKey: String
+    ): Result<BunqSession, DataError>
 }

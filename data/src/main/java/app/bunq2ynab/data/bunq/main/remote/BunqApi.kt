@@ -12,7 +12,7 @@ internal interface BunqApi {
     @POST("installation")
     suspend fun createInstallation(
         @Body bunqInstallationRequest: BunqInstallationRequestDto
-    ) : Response<BunqTriple<BunqInstallationIdDto, BunqInstallationTokenDto, BunqInstallationServerPublicKeyDto>>
+    ) : Response<BunqTriple<BunqInstallationIdDto, BunqAuthTokenDto, BunqInstallationServerPublicKeyDto>>
 
     // https://doc.bunq.com/#/device-server
     @POST("device-server")
@@ -23,6 +23,6 @@ internal interface BunqApi {
     // https://doc.bunq.com/#/session-server
     @POST("session-server")
     suspend fun openSession(
-        @Body bunqDeviceRegistrationRequestDto: BunqDeviceRegistrationRequestDto
-    ) : Response<BunqDeviceRegistrationDto>
+        @Body bunqSessionOpeningRequestDto: BunqSessionOpeningRequestDto
+    ) : Response<BunqTriple<BunqSessionIdDto, BunqAuthTokenDto, BunqSessionUserDto>>
 }

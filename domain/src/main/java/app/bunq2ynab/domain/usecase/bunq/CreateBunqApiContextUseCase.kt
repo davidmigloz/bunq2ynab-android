@@ -3,6 +3,7 @@ package app.bunq2ynab.domain.usecase.bunq
 import app.bunq2ynab.domain.model.Result
 import app.bunq2ynab.domain.model.bunq.BunqDevice
 import app.bunq2ynab.domain.model.bunq.BunqInstallation
+import app.bunq2ynab.domain.model.bunq.BunqSession
 import app.bunq2ynab.domain.repository.bunq.BunqRepository
 import app.bunq2ynab.domain.repository.KeyStoreRepository
 import app.bunq2ynab.domain.repository.bunq.BunqAuthManager
@@ -40,6 +41,9 @@ class CreateBunqApiContextUseCase @Inject constructor(
             registerDevice()
             // 4. Open a session
             emit(Result.success(ApiContextState.SessionOpening))
+            openSession()
+            // Done
+            emit(Result.success(ApiContextState.ApiContextCreated))
         }.catch { e ->
             val exception = if(e is Exception) e else Exception(e)
             emit(Result.error(exception))
@@ -83,6 +87,13 @@ class CreateBunqApiContextUseCase @Inject constructor(
     private suspend fun registerDevice(): BunqDevice {
         return bunqRepository.registerDevice(bunqOAuthRepository.getAccessToken()).get()
     }
+
+    /**
+     * To make any calls besides installation and device-server, we need to open a session.
+     */
+    private suspend fun openSession(): BunqSession {
+        return bunqRepository.openSession(bunqOAuthRepository.getAccessToken()).get()
+    }
 }
 
 sealed class ApiContextState {
@@ -91,5 +102,6 @@ sealed class ApiContextState {
     object InstallationRegistration: ApiContextState()
     object DeviceRegistration: ApiContextState()
     object SessionOpening: ApiContextState()
+    object ApiContextCreated: ApiContextState()
 
 }

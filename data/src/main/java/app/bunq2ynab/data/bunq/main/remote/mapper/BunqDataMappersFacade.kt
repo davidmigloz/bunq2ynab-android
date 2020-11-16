@@ -8,4 +8,5 @@ import javax.inject.Inject
 internal class BunqDataMappersFacade @Inject constructor(
     val bunqInstallationMapper: BunqInstallationMapper,
     val bunqDeviceMapper: BunqDeviceMapper,
+    val bunqSessionMapper: BunqSessionMapper,
 )

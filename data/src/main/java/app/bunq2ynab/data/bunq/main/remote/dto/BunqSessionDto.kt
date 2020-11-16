@@ -3,11 +3,11 @@ package app.bunq2ynab.data.bunq.main.remote.dto
 import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
-internal data class BunqInstallationIdDto(
+internal data class BunqSessionIdDto(
     val id: Int?
 )
 
 @JsonClass(generateAdapter = true)
-internal data class BunqInstallationServerPublicKeyDto(
-    val server_public_key: String?
+internal data class BunqSessionUserDto(
+    val id: Int?
 )

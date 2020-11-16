@@ -1,17 +1,14 @@
 package app.bunq2ynab.data.bunq.main
 
-import android.net.Uri
-import app.bunq2ynab.data.BuildConfig
 import app.bunq2ynab.data.bunq.main.local.BunqLocalDataSource
 import app.bunq2ynab.data.bunq.main.remote.BunqRemoteDataSource
-import app.bunq2ynab.data.bunq.oauth.remote.BunqOAuthRemoteDataSource
 import app.bunq2ynab.data.bunq.main.remote.mapper.BunqDataMappersFacade
 import app.bunq2ynab.domain.model.Result
 import app.bunq2ynab.domain.model.bunq.BunqDevice
 import app.bunq2ynab.domain.model.bunq.BunqInstallation
+import app.bunq2ynab.domain.model.bunq.BunqSession
 import app.bunq2ynab.domain.model.error.DataError
 import app.bunq2ynab.domain.model.map
-import app.bunq2ynab.domain.model.oauth.OAuthTokenExchangeResult
 import app.bunq2ynab.domain.repository.bunq.BunqRepository
 import javax.inject.Inject
 
@@ -31,5 +28,11 @@ internal class BunqRepositoryImpl @Inject constructor(
         apiKey: String
     ): Result<BunqDevice, DataError> = remoteDataSource.registerDevice(apiKey).map {
         mappers.bunqDeviceMapper(it)
+    }
+
+    override suspend fun openSession(
+        apiKey: String
+    ): Result<BunqSession, DataError> = remoteDataSource.openSession(apiKey).map {
+        mappers.bunqSessionMapper(it)
     }
 }
