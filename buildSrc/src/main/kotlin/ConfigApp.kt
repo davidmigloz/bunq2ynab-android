@@ -5,7 +5,7 @@ import org.gradle.plugin.use.PluginDependenciesSpec
 import org.jetbrains.kotlin.gradle.dsl.KotlinJvmOptions
 
 object AppConfiguration {
-    const val applicationId = "app.bunq2ynab"
+    const val applicationId = "app.bunq4ynab"
 
     const val minSdkVersion = 26
     const val compileSdkVersion = 30

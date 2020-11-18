@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/startFragment"
-        android:name="app.bunq2ynab.start.StartFragment"
+        android:name="app.bunq4ynab.start.StartFragment"
         android:label="StartFragment"
         tools:layout="@layout/start_fragment">
         <action
@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/onboardingFragment"
-        android:name="app.bunq2ynab.onboarding.OnboardingFragment"
+        android:name="app.bunq4ynab.onboarding.OnboardingFragment"
         android:label="OnboardingFragment"
         tools:layout="@layout/onboarding_fragment">
         <action
@@ -25,12 +25,12 @@
     </fragment>
     <fragment
         android:id="@+id/connectBunqFragment"
-        android:name="app.bunq2ynab.bunq.connect.ConnectBunqFragment"
+        android:name="app.bunq4ynab.bunq.connect.ConnectBunqFragment"
         android:label="ConnectBunqFragment"
         tools:layout="@layout/connect_bunq_fragment">
         <deepLink
             android:id="@+id/deepLink"
-            app:uri="https://bunq2ynab.app/connect/bunq?code={code}&amp;state={state}" />
+            app:uri="https://bunq4ynab.app/connect/bunq?code={code}&amp;state={state}" />
         <argument
             android:name="code"
             android:defaultValue="@null"

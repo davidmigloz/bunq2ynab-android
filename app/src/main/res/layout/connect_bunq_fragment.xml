@@ -8,7 +8,7 @@
 
         <variable
             name="vm"
-            type="app.bunq2ynab.bunq.connect.ConnectBunqViewModel" />
+            type="app.bunq4ynab.bunq.connect.ConnectBunqViewModel" />
 
     </data>
 

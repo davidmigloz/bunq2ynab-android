@@ -1,7 +1,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <!-- Typography logo: Roboto Slab -->
-    <style name="Theme.Bunq2ynab" parent="Theme.MaterialComponents.Light.NoActionBar">
+    <style name="Theme.Bunq4ynab" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/orange_500</item>
         <item name="colorPrimaryVariant">@color/orange_500_dark</item>

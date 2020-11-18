@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">bunq2ynab</string>
+    <string name="app_name">bunq4ynab</string>
 
     <!-- Start screen -->
     <string name="start_description">Easily sync your bunq accounts with YNAB accounts.</string>
